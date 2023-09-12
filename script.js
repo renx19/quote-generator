@@ -35,15 +35,21 @@ function randomQuote() {
     // Change the background image as soon as the button is clicked
     setRandomBackgroundImage();
 
-    fetch("http://api.quotable.io/random")
+    fetch("https://api.quotable.io/random") // Use HTTPS here
         .then(response => response.json())
         .then(result => {
             quoteText.innerText = result.content;
             authorName.innerText = result.author;
             quoteBtn.classList.remove("loading");
             quoteBtn.innerText = "New Quote";
+        })
+        .catch(error => {
+            console.error("Error fetching quote:", error);
+            quoteBtn.classList.remove("loading");
+            quoteBtn.innerText = "New Quote";
         });
 }
+
 
 speechBtn.addEventListener("click", () => {
     if (!quoteBtn.classList.contains("loading")) {
